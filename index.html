@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form and Table Example</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Enter Details</h2>
+    <form id="userForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required><br>
+      
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required><br>
+      
+      <label for="address">Address:</label>
+      <input type="text" id="address" required><br>
+      
+      <label for="pincode">Pincode:</label>
+      <input type="text" id="pincode" required><br>
+      
+      <label>Gender:</label>
+      <input type="radio" id="male" name="gender" value="Male" required>
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="Female" required>
+      <label for="female">Female</label><br>
+      
+      <label>Choice for Food (select at least 2):</label><br>
+      <input type="checkbox" id="food1" name="food[]" value="Pizza">
+      <label for="food1">Pizza</label>
+      <input type="checkbox" id="food2" name="food[]" value="Burger">
+      <label for="food2">Burger</label>
+      <input type="checkbox" id="food3" name="food[]" value="Pasta">
+      <label for="food3">Pasta</label>
+      <input type="checkbox" id="food4" name="food[]" value="Salad">
+      <label for="food4">Salad</label>
+      <input type="checkbox" id="food5" name="food[]" value="Sushi">
+      <label for="food5">Sushi</label><br>
+      
+      <label for="state">State:</label>
+      <input type="text" id="state" required><br>
+      
+      <label for="country">Country:</label>
+      <input type="text" id="country" required><br>
+      
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+  </div>
+  
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>Pincode</th>
+        <th>Gender</th>
+        <th>Food Choices</th>
+        <th>State</th>
+        <th>Country</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function submitForm() {
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const address = document.getElementById("address").value;
+      const pincode = document.getElementById("pincode").value;
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const foodChoices = Array.from(document.querySelectorAll('input[name="food[]"]:checked')).map(input => input.value).join(", ");
+      const state = document.getElementById("state").value;
+      const country = document.getElementById("country").value;
+      
+      const userTable = document.getElementById("userTable").getElementsByTagName('tbody')[0];
+      const newRow = userTable.insertRow();
+      const cells = [firstName, lastName, address, pincode, gender, foodChoices, state, country];
+      
+      cells.forEach((cellData) => {
+        const cell = newRow.insertCell();
+        cell.appendChild(document.createTextNode(cellData));
+      });
+      
+      clearForm();
+    }
+    
+    function clearForm() {
+      document.getElementById("userForm").reset();
+    }
+  </script>
+</body>
+</html>
